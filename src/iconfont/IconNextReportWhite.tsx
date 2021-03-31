@@ -1,0 +1,35 @@
+/* tslint:disable */
+/* eslint-disable */
+
+import React, { FunctionComponent } from 'react';
+import { ViewProps } from 'react-native';
+import { Svg, GProps, Path } from 'react-native-svg';
+import { getIconColor } from './helper';
+
+interface Props extends GProps, ViewProps {
+  size?: number;
+  color?: string | string[];
+}
+
+let IconNextReportWhite: FunctionComponent<Props> = ({ size, color, ...rest }) => {
+  return (
+    <Svg viewBox="0 0 1024 1024" width={size} height={size} {...rest}>
+      <Path
+        d="M0.159917 511.413639v-362.477876C0.159917 55.970849 55.491098 0.426445 149.415513 0.213222q362.477876-0.9595 724.955752 0c93.284748 0 149.255596 55.970849 149.255596 149.255596q1.066111 362.477876 0 724.955753c0 92.858303-56.397293 148.509318-150.001874 149.255596q-362.477876 0.9595-724.955752 0C55.064654 1023.680167 0.47975 967.92254 0.053306 873.891515c0.106611-121.003644 0.106611-241.794066 0.106611-362.477876z m517.064029-445.421343c-122.602811 0-245.205622-0.533056-367.808433 0-60.981572 0-83.156689 22.921395-83.263301 84.436023q-0.639667 359.812598 0 719.625195c0 65.352629 21.322228 87.314524 85.288912 87.421135q359.812598 0.746278 719.625196 0c63.966684 0 86.141801-22.281728 86.248412-87.101302q0.639667-357.147319 0-714.294638c0-68.337741-21.322228-89.873191-88.700469-90.193024-116.845809-0.213222-234.118064 0.106611-351.390317 0.106611z"
+        fill={getIconColor(color, 0, '#333333')}
+      />
+      <Path
+        d="M579.698074 322.285476h55.757626v441.903176l-55.757626 3.091723zM197.710359 449.899011h55.437793v314.396252l-55.437793 2.77189zM769.465903 764.082041V514.505362h57.356794v249.576679zM387.158355 763.975429v-185.503383h57.356793v185.503383z"
+        fill={getIconColor(color, 1, '#333333')}
+      />
+    </Svg>
+  );
+};
+
+IconNextReportWhite.defaultProps = {
+  size: 18,
+};
+
+IconNextReportWhite = React.memo ? React.memo(IconNextReportWhite) : IconNextReportWhite;
+
+export default IconNextReportWhite;
