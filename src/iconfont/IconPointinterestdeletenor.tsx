@@ -27,7 +27,7 @@ let IconPointinterestdeletenor: FunctionComponent<Props> = ({ size, color, ...re
 };
 
 IconPointinterestdeletenor.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconPointinterestdeletenor = React.memo ? React.memo(IconPointinterestdeletenor) : IconPointinterestdeletenor;

@@ -27,7 +27,7 @@ let IconNextReportWhite: FunctionComponent<Props> = ({ size, color, ...rest }) =
 };
 
 IconNextReportWhite.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconNextReportWhite = React.memo ? React.memo(IconNextReportWhite) : IconNextReportWhite;

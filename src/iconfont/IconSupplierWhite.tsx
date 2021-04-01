@@ -23,7 +23,7 @@ let IconSupplierWhite: FunctionComponent<Props> = ({ size, color, ...rest }) => 
 };
 
 IconSupplierWhite.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconSupplierWhite = React.memo ? React.memo(IconSupplierWhite) : IconSupplierWhite;

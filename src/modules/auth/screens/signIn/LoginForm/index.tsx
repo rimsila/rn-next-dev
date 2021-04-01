@@ -4,24 +4,12 @@ import authService from 'modules/auth/authService';
 import Form, { Field, useForm } from 'rc-field-form';
 import { Store } from 'rc-field-form/es/interface';
 import React from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { MMKV } from 'react-native-mmkv';
 import Animated, { Extrapolate, interpolate, SpringUtils } from 'react-native-reanimated';
 import { mix, useSpringTransition } from 'react-native-redash';
 import LoginTab from '../LoginTab';
-
-const Error = ({ children }: any) =>
-  children.map((error, i) => (
-    <Text
-      key={i}
-      style={{
-        color: 'red',
-        marginTop: 10,
-      }}
-    >
-      {error}
-    </Text>
-  ));
 
 const FormContent = ({ isSmsLogin }: { isSmsLogin: boolean }) => {
   const [form] = useForm();
@@ -30,77 +18,53 @@ const FormContent = ({ isSmsLogin }: { isSmsLogin: boolean }) => {
 
   const handleFinish = (values: Store) => {
     console.log('values', values);
-    updateAuth({ signedIn: true });
     // navigation.navigate('ConfigPass');
+    if (values?.phone === 'Admin' && values?.sms === 'Admin') {
+      MMKV.set('token', JSON.stringify(values?.phone + values?.sms));
+      updateAuth({ signedIn: true });
+    } else {
+      Alert.alert('Invalid', 'Please fill-in the correct form!', [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ]);
+    }
   };
 
   return (
     <Form component={false} form={form} onFinish={handleFinish}>
       {isSmsLogin ? (
         <>
-          <Field
-            name="phone"
-            // trigger="onChangeText"
-            {...{
-              rules: [
-                {
-                  required: true,
-                  message: 'This field is required!',
-                },
-              ],
-            }}
-          >
-            {() => {
-              const usernameError = form.getFieldError('phone');
-              // console.log('getFieldError', form.getFieldError('phone'));
-              return (
-                <>
-                  <TextInput
-                    placeholder="Please enter your username"
-                    style={{
-                      borderWidth: 1,
-                      borderColor: '#e5e5e5',
-                      height: 48,
-                      paddingHorizontal: 10,
-                    }}
-                  />
-                  <Error>{usernameError}</Error>
-                </>
-              );
-            }}
+          <Field name="phone" trigger="onChangeText">
+            <TextInput
+              placeholder="Admin"
+              style={{
+                borderWidth: 1,
+                borderColor: '#e5e5e5',
+                height: 48,
+                paddingHorizontal: 10,
+              }}
+            />
           </Field>
 
-          <Field
-            name="sms"
-            // trigger="onChangeText"
-            {...{
-              rules: [
-                {
-                  required: true,
-                  message: 'This field is required!',
-                },
-              ],
-            }}
-          >
-            {() => {
-              const smsError = form.getFieldError('sms');
-              return (
-                <>
-                  <TextInput
-                    placeholder="Please enter password"
-                    style={{
-                      borderWidth: 1,
-                      borderColor: '#e5e5e5',
-                      height: 48,
-                      paddingHorizontal: 10,
-                      marginTop: 20,
-                    }}
-                  />
-                  <Error>{smsError}</Error>
-                </>
-              );
-            }}
+          <Field name="sms" trigger="onChangeText">
+            <TextInput
+              placeholder="Admin"
+              style={{
+                borderWidth: 1,
+                borderColor: '#e5e5e5',
+                height: 48,
+                paddingHorizontal: 10,
+                marginTop: 20,
+              }}
+            />
           </Field>
+          <TouchableOpacity onPress={form.submit} style={styles.loginBtn}>
+            <Text style={{ fontSize: 17, lineHeight: 22, color: '#fff', fontWeight: '500' }}>Sign In</Text>
+          </TouchableOpacity>
         </>
       ) : (
         <>
@@ -120,11 +84,12 @@ const FormContent = ({ isSmsLogin }: { isSmsLogin: boolean }) => {
           <TouchableOpacity onPress={() => navigation.navigate('ForgetPass')} style={{ alignItems: 'flex-end' }}>
             <Text style={{ fontSize: 14, lineHeight: 20, color: '#999' }}>Forgot your password?</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={form.submit} style={styles.loginBtn}>
+            <Text style={{ fontSize: 17, lineHeight: 22, color: '#fff', fontWeight: '500' }}>Sign Up</Text>
+          </TouchableOpacity>
         </>
       )}
-      <TouchableOpacity onPress={form.submit} style={styles.loginBtn}>
-        <Text style={{ fontSize: 17, lineHeight: 22, color: '#fff', fontWeight: '500' }}>Login</Text>
-      </TouchableOpacity>
+
       <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.policy}>I have read and agreed</Text>
         <TouchableOpacity>
@@ -198,7 +163,6 @@ export default function LoginForm({
 
 const styles = StyleSheet.create({
   top: {
-    marginHorizontal: 18,
     minHeight: 310,
     height: 'auto',
     borderRadius: 20,

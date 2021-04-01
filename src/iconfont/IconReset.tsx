@@ -23,7 +23,7 @@ let IconReset: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconReset.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconReset = React.memo ? React.memo(IconReset) : IconReset;

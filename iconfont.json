@@ -1,8 +1,8 @@
 {
-    "symbol_url": "//at.alicdn.com/t/font_2221049_mv9p5mlmjqi.js",
+    "symbol_url": "//at.alicdn.com/t/font_2221049_1srsudnzomp.js",
     "use_typescript": true,
     "save_dir": "./src/iconfont",
     "trim_icon_prefix": "",
-    "default_icon_size": 18,
+    "default_icon_size": 22,
     "local_svgs": "./localSvgs"
 }

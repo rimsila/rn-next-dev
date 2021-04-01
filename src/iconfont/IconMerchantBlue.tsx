@@ -39,7 +39,7 @@ let IconMerchantBlue: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconMerchantBlue.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconMerchantBlue = React.memo ? React.memo(IconMerchantBlue) : IconMerchantBlue;

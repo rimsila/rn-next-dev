@@ -1,7 +1,7 @@
+import { MMKV } from 'react-native-mmkv';
 import type { ResponseError } from 'umi-request';
 import { extend } from 'umi-request';
 import { LoginFailure } from './enums';
-import { MMKV } from 'react-native-mmkv';
 
 const codeMessage: Record<number, string> = {
   200: 'The server successfully returned the requested data. ',

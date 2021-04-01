@@ -31,7 +31,7 @@ let IconResetYellow: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconResetYellow.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconResetYellow = React.memo ? React.memo(IconResetYellow) : IconResetYellow;

@@ -31,7 +31,7 @@ let IconBackPink: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconBackPink.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconBackPink = React.memo ? React.memo(IconBackPink) : IconBackPink;

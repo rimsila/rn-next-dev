@@ -27,7 +27,7 @@ let IconCaidan07: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconCaidan07.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconCaidan07 = React.memo ? React.memo(IconCaidan07) : IconCaidan07;

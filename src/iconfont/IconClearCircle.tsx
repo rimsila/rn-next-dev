@@ -23,7 +23,7 @@ let IconClearCircle: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconClearCircle.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconClearCircle = React.memo ? React.memo(IconClearCircle) : IconClearCircle;

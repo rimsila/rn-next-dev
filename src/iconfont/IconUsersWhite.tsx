@@ -27,7 +27,7 @@ let IconUsersWhite: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconUsersWhite.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconUsersWhite = React.memo ? React.memo(IconUsersWhite) : IconUsersWhite;

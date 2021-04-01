@@ -5,4 +5,5 @@ class AuthService {
     signedIn: false,
   });
 }
+
 export default new AuthService();

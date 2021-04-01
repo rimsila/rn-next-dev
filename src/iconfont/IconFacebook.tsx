@@ -23,7 +23,7 @@ let IconFacebook: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconFacebook.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconFacebook = React.memo ? React.memo(IconFacebook) : IconFacebook;

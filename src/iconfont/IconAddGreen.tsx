@@ -23,7 +23,7 @@ let IconAddGreen: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconAddGreen.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconAddGreen = React.memo ? React.memo(IconAddGreen) : IconAddGreen;

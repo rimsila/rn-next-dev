@@ -23,7 +23,7 @@ let IconDaka11: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconDaka11.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconDaka11 = React.memo ? React.memo(IconDaka11) : IconDaka11;

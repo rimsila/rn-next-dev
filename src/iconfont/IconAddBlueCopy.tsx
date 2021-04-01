@@ -23,7 +23,7 @@ let IconAddBlueCopy: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconAddBlueCopy.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconAddBlueCopy = React.memo ? React.memo(IconAddBlueCopy) : IconAddBlueCopy;

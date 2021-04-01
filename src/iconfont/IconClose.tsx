@@ -27,7 +27,7 @@ let IconClose: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconClose.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconClose = React.memo ? React.memo(IconClose) : IconClose;

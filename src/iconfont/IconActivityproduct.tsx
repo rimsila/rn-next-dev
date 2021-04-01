@@ -23,7 +23,7 @@ let IconActivityproduct: FunctionComponent<Props> = ({ size, color, ...rest }) =
 };
 
 IconActivityproduct.defaultProps = {
-  size: 18,
+  size: 22,
 };
 
 IconActivityproduct = React.memo ? React.memo(IconActivityproduct) : IconActivityproduct;
