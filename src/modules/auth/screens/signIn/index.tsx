@@ -27,10 +27,9 @@ export default function SignIn() {
   return (
     <Container
       {...{
-        content: {
-          style: {
-            paddingHorizontal: 18,
-          },
+        style: {
+          paddingHorizontal: 15,
+          paddingVertical: 20,
         },
       }}
     >

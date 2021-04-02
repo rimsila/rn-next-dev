@@ -7,21 +7,15 @@ module.exports = {
         safe: true,
       },
     ],
+    ['import', { libraryName: '@ant-design/react-native' }],
     [
       'module-resolver',
       {
         root: ['./src'],
-        extensions: [
-          '.ios.ts',
-          '.android.ts',
-          '.ts',
-          '.ios.tsx',
-          '.android.tsx',
-          '.tsx',
-          '.jsx',
-          '.js',
-          '.json',
-        ],
+        extensions: ['.ios.ts', '.android.ts', '.ts', '.ios.tsx', '.android.tsx', '.tsx', '.jsx', '.js', '.json'],
+        alias: {
+          '@ant-design/react-native': '@ant-design/react-native/lib',
+        },
       },
     ],
   ],

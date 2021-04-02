@@ -4,19 +4,18 @@ import React from 'react';
 
 const Stack = createStackNavigator();
 
-const MainStack = (screenOptions: StackNavigationOptions) => {
+const SettingStack = (screenOptions: StackNavigationOptions) => {
   return (
     <Stack.Navigator
-      initialRouteName="Homepage"
+      initialRouteName="Settings"
       mode="card"
       headerMode="screen"
       screenOptions={{
         ...screenOptions,
       }}
     >
-      <Stack.Screen name="Homepage" component={Homepage} options={{ headerTitle: 'Homepage' }} />
+      <Stack.Screen name="Settings" component={Homepage} options={{ headerTitle: 'Settings' }} />
     </Stack.Navigator>
   );
 };
-
-export default MainStack;
+export default SettingStack;

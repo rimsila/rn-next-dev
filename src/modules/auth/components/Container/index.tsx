@@ -1,22 +1,29 @@
 import React, { FC } from 'react';
-import { Dimensions, ImageBackground, ImageBackgroundProps, SafeAreaView, StatusBar } from 'react-native';
+import { Dimensions, ImageBackground, ImageBackgroundProps, SafeAreaView, StatusBar, ViewProps } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
 export type IContainer = {
-  content?: Partial<ImageBackgroundProps>;
-};
+  content?: Partial<ViewProps>;
+} & Partial<ImageBackgroundProps>;
 
 const Container: FC<IContainer> = props => {
-  const { children, content } = props;
+  const { children, content, ...rest } = props;
   return (
     <ImageBackground
+      {...rest}
       source={require('../../assets/bg.webp')}
-      {...content}
-      style={{ width, height, paddingHorizontal: 15, paddingVertical: 20, ...(content?.style as any) }}
+      style={{ width, height, ...(rest.style as any) }}
     >
       <StatusBar barStyle="light-content" />
-      <SafeAreaView {...{ style: { flex: 1 } }}>{children}</SafeAreaView>
+      <SafeAreaView
+        {...{
+          ...content,
+          style: { flex: 1, paddingHorizontal: 15, paddingVertical: 20, ...(content?.style as any) },
+        }}
+      >
+        {children}
+      </SafeAreaView>
     </ImageBackground>
   );
 };
