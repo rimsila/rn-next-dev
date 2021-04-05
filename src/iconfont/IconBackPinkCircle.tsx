@@ -23,7 +23,7 @@ let IconBackPinkCircle: FunctionComponent<Props> = ({ size, color, ...rest }) =>
 };
 
 IconBackPinkCircle.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconBackPinkCircle = React.memo ? React.memo(IconBackPinkCircle) : IconBackPinkCircle;

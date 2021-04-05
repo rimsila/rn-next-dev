@@ -1,4 +1,5 @@
 import { Tabs } from '@ant-design/react-native';
+import { COLOR } from 'constants/color';
 import Container from 'modules/auth/components/Container';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -7,7 +8,7 @@ import { TransactionList } from './TransactionList';
 
 export default function Homepage() {
   const { logout } = useAuth();
-  const tabs = [{ title: 'Daily' }, { title: 'Second Tab' }, { title: 'Third Tab' }];
+  const tabs = [{ title: 'Daily' }, { title: 'Weekly' }, { title: 'Monthly' }];
   const style: any = {
     alignItems: 'center',
     justifyContent: 'center',
@@ -39,7 +40,7 @@ export default function Homepage() {
         onPress={logout}
         style={{
           marginVertical: 15,
-          backgroundColor: '#3171F0',
+          backgroundColor: COLOR.cyan7,
           height: 44,
           justifyContent: 'center',
           alignItems: 'center',

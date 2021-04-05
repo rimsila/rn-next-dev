@@ -23,7 +23,7 @@ let IconRadioUncheckedBO: FunctionComponent<Props> = ({ size, color, ...rest }) 
 };
 
 IconRadioUncheckedBO.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconRadioUncheckedBO = React.memo ? React.memo(IconRadioUncheckedBO) : IconRadioUncheckedBO;

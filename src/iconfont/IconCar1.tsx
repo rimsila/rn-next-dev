@@ -59,7 +59,7 @@ let IconCar1: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconCar1.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconCar1 = React.memo ? React.memo(IconCar1) : IconCar1;

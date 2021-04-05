@@ -23,7 +23,7 @@ let IconBuyBlackCopy: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconBuyBlackCopy.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconBuyBlackCopy = React.memo ? React.memo(IconBuyBlackCopy) : IconBuyBlackCopy;

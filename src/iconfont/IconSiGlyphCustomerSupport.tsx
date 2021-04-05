@@ -27,7 +27,7 @@ let IconSiGlyphCustomerSupport: FunctionComponent<Props> = ({ size, color, ...re
 };
 
 IconSiGlyphCustomerSupport.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconSiGlyphCustomerSupport = React.memo ? React.memo(IconSiGlyphCustomerSupport) : IconSiGlyphCustomerSupport;

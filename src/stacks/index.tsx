@@ -1,14 +1,24 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { CardStyleInterpolators, StackHeaderLeftButtonProps, StackNavigationOptions } from '@react-navigation/stack';
+import { CardStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
+import { COLOR } from 'constants/color';
 import IconFont from 'iconfont';
 import { useAtomValue } from 'jotai/utils';
 import authService from 'modules/auth/authService';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MMKV } from 'react-native-mmkv';
 import AuthStack from './authStack';
 import MainStack from './mainStack';
 import SettingStack from './settingStack';
+
+const HeaderLeft = ({ goBack }) => {
+  return (
+    <TouchableOpacity activeOpacity={0.8} onPress={goBack} style={{ marginLeft: 0, padding: 10 }}>
+      <IconFont name="icon-back-pink1" color="red" />
+    </TouchableOpacity>
+  );
+};
 
 const screenOptions: StackNavigationOptions = {
   headerTitleStyle: {
@@ -16,11 +26,6 @@ const screenOptions: StackNavigationOptions = {
     fontSize: 18,
   },
   headerTitleAlign: 'center',
-  headerLeft: (props: StackHeaderLeftButtonProps) => (
-    <TouchableOpacity activeOpacity={0.8} onPress={props.onPress} style={{ marginLeft: 0, padding: 10 }}>
-      <IconFont name="icon-back-pink1" color="red" />
-    </TouchableOpacity>
-  ),
   gestureEnabled: true,
   gestureDirection: 'horizontal',
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -44,11 +49,20 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const HomeScreen = () => {
-  return <MainStack {...{ ...screenOptions, headerTitleAlign: 'left', headerLeft: () => null }} />;
+  return <MainStack {...{ ...screenOptions, headerTitleAlign: 'left' }} />;
 };
 
-const SettingsScreen = () => {
-  return <SettingStack {...{ ...screenOptions }} />;
+const SettingsScreen = ({ navigation: { goBack } }) => {
+  return (
+    <SettingStack
+      {...{
+        ...screenOptions,
+        headerLeft: () => {
+          return <HeaderLeft {...{ goBack }} />;
+        },
+      }}
+    />
+  );
 };
 
 export default () => {
@@ -63,7 +77,7 @@ export default () => {
         <Tab.Navigator
           initialRouteName="HomeStack"
           tabBarOptions={{
-            activeTintColor: 'blue',
+            activeTintColor: COLOR.cyan7,
           }}
         >
           <Tab.Screen
@@ -79,7 +93,7 @@ export default () => {
             component={SettingsScreen}
             options={{
               tabBarLabel: 'Settings',
-              tabBarIcon: ({ color }) => <IconFont name="icon-merchant-blue" color={color} />,
+              tabBarIcon: ({ color }) => <IconFont name="icon-setting-white" color={color} />,
             }}
           />
         </Tab.Navigator>

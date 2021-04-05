@@ -31,7 +31,7 @@ let IconHrWhite: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconHrWhite.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconHrWhite = React.memo ? React.memo(IconHrWhite) : IconHrWhite;

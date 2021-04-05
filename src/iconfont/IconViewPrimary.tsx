@@ -27,7 +27,7 @@ let IconViewPrimary: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconViewPrimary.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconViewPrimary = React.memo ? React.memo(IconViewPrimary) : IconViewPrimary;

@@ -1,5 +1,5 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
-import Homepage from 'modules/homepage/screens';
+import SettingPage from 'modules/setting/screen';
 import React from 'react';
 
 const Stack = createStackNavigator();
@@ -14,7 +14,7 @@ const SettingStack = (screenOptions: StackNavigationOptions) => {
         ...screenOptions,
       }}
     >
-      <Stack.Screen name="Settings" component={Homepage} options={{ headerTitle: 'Settings' }} />
+      <Stack.Screen name="Settings" component={SettingPage} options={{ headerTitle: 'Settings' }} />
     </Stack.Navigator>
   );
 };

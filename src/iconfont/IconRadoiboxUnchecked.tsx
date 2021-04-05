@@ -23,7 +23,7 @@ let IconRadoiboxUnchecked: FunctionComponent<Props> = ({ size, color, ...rest })
 };
 
 IconRadoiboxUnchecked.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconRadoiboxUnchecked = React.memo ? React.memo(IconRadoiboxUnchecked) : IconRadoiboxUnchecked;

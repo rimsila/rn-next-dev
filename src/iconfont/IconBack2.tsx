@@ -23,7 +23,7 @@ let IconBack2: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconBack2.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconBack2 = React.memo ? React.memo(IconBack2) : IconBack2;

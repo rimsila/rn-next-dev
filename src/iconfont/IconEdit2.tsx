@@ -31,7 +31,7 @@ let IconEdit2: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconEdit2.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconEdit2 = React.memo ? React.memo(IconEdit2) : IconEdit2;

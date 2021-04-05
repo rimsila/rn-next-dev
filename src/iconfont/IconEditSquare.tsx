@@ -23,7 +23,7 @@ let IconEditSquare: FunctionComponent<Props> = ({ size, color, ...rest }) => {
 };
 
 IconEditSquare.defaultProps = {
-  size: 22,
+  size: 26,
 };
 
 IconEditSquare = React.memo ? React.memo(IconEditSquare) : IconEditSquare;
