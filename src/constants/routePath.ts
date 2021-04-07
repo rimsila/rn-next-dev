@@ -29,7 +29,7 @@ const newRoute: INewRoute = { ...ROUTE };
  * @param exclude
  * getPermissions with exclude props not used
  */
-export const getPermissions = (exclude: boolean = true) => {
+export const getPermissions = (exclude = true) => {
   if (exclude) {
     delete newRoute.home;
     delete newRoute.auth;
@@ -39,7 +39,7 @@ export const getPermissions = (exclude: boolean = true) => {
 
 export const PERMISSIONS = getPermissions();
 
-export const getActiveRoute = (exclude: boolean = true) => {
+export const getActiveRoute = (exclude = true) => {
   const activeRoute: INewRoute = { ...ROUTE };
 
   if (exclude) {

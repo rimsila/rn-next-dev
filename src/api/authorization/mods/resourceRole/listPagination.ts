@@ -12,14 +12,11 @@ export const url = '/role/resource/listPagination';
 
 export async function fetch(params = {}) {
   const request = initRequest();
-  const result = await request.get(
-    backEndUrl + '/role/resource/listPagination',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params,
+  const result = await request.get(backEndUrl + '/role/resource/listPagination', {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    params,
+  });
   return result;
 }

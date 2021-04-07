@@ -12,14 +12,11 @@ export const url = '/role/resource/clearUserRole';
 
 export async function fetch(params = {}) {
   const request = initRequest();
-  const result = await request.post(
-    backEndUrl + '/role/resource/clearUserRole',
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      params,
+  const result = await request.post(backEndUrl + '/role/resource/clearUserRole', {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-  );
+    params,
+  });
   return result;
 }

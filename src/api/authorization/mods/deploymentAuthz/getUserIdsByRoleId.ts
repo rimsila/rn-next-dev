@@ -12,14 +12,11 @@ export const url = '/deployment/authz/getUserIdsByRoleId';
 
 export async function fetch(params = {}) {
   const request = initRequest();
-  const result = await request.get(
-    backEndUrl + '/deployment/authz/getUserIdsByRoleId',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params,
+  const result = await request.get(backEndUrl + '/deployment/authz/getUserIdsByRoleId', {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    params,
+  });
   return result;
 }

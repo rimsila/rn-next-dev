@@ -12,14 +12,11 @@ export const url = '/resource/getPermissionByUrl';
 
 export async function fetch(params = {}) {
   const request = initRequest();
-  const result = await request.get(
-    backEndUrl + '/resource/getPermissionByUrl',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params,
+  const result = await request.get(backEndUrl + '/resource/getPermissionByUrl', {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    params,
+  });
   return result;
 }

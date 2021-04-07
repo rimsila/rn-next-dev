@@ -12,14 +12,11 @@ export const url = '/role/resource/listByUserIds';
 
 export async function fetch(data = {}) {
   const request = initRequest();
-  const result = await request.post(
-    backEndUrl + '/role/resource/listByUserIds',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data,
+  const result = await request.post(backEndUrl + '/role/resource/listByUserIds', {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    data,
+  });
   return result;
 }

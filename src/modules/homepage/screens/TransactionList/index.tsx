@@ -184,7 +184,7 @@ export const TransactionList = () => {
   ];
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: 'white', marginVertical: 10 }}
+      style={{ flex: 1, backgroundColor: 'white', marginVertical: 20 }}
       automaticallyAdjustContentInsets={false}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}

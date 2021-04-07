@@ -12,14 +12,11 @@ export const url = '/deployment/authz/getBusinessValueListByRole';
 
 export async function fetch(params = {}) {
   const request = initRequest();
-  const result = await request.get(
-    backEndUrl + '/deployment/authz/getBusinessValueListByRole',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params,
+  const result = await request.get(backEndUrl + '/deployment/authz/getBusinessValueListByRole', {
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    params,
+  });
   return result;
 }

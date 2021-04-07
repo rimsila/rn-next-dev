@@ -1,12 +1,11 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { createStackNavigator, StackHeaderLeftButtonProps, StackNavigationOptions } from '@react-navigation/stack';
-
-import SignIn from 'modules/auth/screens/signIn';
-import ConfigPass from 'modules/auth/screens/configPass';
 import BindPhone from 'modules/auth/screens/bindPhone';
+import ConfigPass from 'modules/auth/screens/configPass';
 import ForgetPass from 'modules/auth/screens/forgetPass';
+import SignIn from 'modules/auth/screens/signIn';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const Stack = createStackNavigator();
 

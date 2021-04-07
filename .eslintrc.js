@@ -10,6 +10,9 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    'import/resolver': {
+      typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
+    },
   },
   parserOptions: {
     ecmaVersion: 2018,
@@ -34,5 +37,7 @@ module.exports = {
     'react/display-name': 'off',
     'react/no-deprecated': 'warn',
     'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
 };

@@ -1,3 +1,5 @@
+import { Provider } from '@ant-design/react-native';
+import enUS from '@ant-design/react-native/locale-provider/en_US';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CardStyleInterpolators, StackNavigationOptions } from '@react-navigation/stack';
 import { COLOR } from 'constants/color';
@@ -49,7 +51,7 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const HomeScreen = () => {
-  return <MainStack {...{ ...screenOptions, headerTitleAlign: 'left' }} />;
+  return <MainStack {...{ ...screenOptions }} />;
 };
 
 const SettingsScreen = ({ navigation: { goBack } }) => {
@@ -74,31 +76,37 @@ export default () => {
   if (isAuth || auth?.signedIn) {
     return (
       <>
-        <Tab.Navigator
-          initialRouteName="HomeStack"
-          tabBarOptions={{
-            activeTintColor: COLOR.cyan7,
-          }}
-        >
-          <Tab.Screen
-            name="HomeStack"
-            component={HomeScreen}
-            options={{
-              tabBarLabel: 'Home',
-              tabBarIcon: ({ color }) => <IconFont name="icon-merchant-blue" color={color} />,
+        <Provider locale={enUS}>
+          <Tab.Navigator
+            initialRouteName="HomeStack"
+            tabBarOptions={{
+              activeTintColor: COLOR.cyan7,
             }}
-          />
-          <Tab.Screen
-            name="Settings"
-            component={SettingsScreen}
-            options={{
-              tabBarLabel: 'Settings',
-              tabBarIcon: ({ color }) => <IconFont name="icon-setting-white" color={color} />,
-            }}
-          />
-        </Tab.Navigator>
+          >
+            <Tab.Screen
+              name="HomeStack"
+              component={HomeScreen}
+              options={{
+                tabBarLabel: 'Home',
+                tabBarIcon: ({ color }) => <IconFont name="icon-merchant-blue" color={color} />,
+              }}
+            />
+            <Tab.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({ color }) => <IconFont name="icon-setting-white" color={color} />,
+              }}
+            />
+          </Tab.Navigator>
+        </Provider>
       </>
     );
   }
-  return <AuthStack {...screenOptions} />;
+  return (
+    <Provider>
+      <AuthStack {...screenOptions} />
+    </Provider>
+  );
 };
