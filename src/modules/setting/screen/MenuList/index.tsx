@@ -1,5 +1,7 @@
 import { Flex, List, WhiteSpace } from '@ant-design/react-native';
+import { useNavigation } from '@react-navigation/core';
 import { COLOR } from 'constants/color';
+import { STACK } from 'constants/StackNav';
 import IconFont from 'iconfont';
 import React, { Fragment } from 'react';
 import { ScrollView, Text } from 'react-native';
@@ -9,7 +11,7 @@ const Item = List.Item;
 
 export const MenuList = () => {
   const { logout } = useAuth();
-
+  const { navigate } = useNavigation();
   // const onLogOutConfirm = () => {
   //   Alert.alert('Logout', 'Are you sure to logout?', [
   //     {
@@ -28,7 +30,7 @@ export const MenuList = () => {
           icon: 'icon-user',
           title: 'Profile',
           size: 26,
-          link: '',
+          link: STACK.settings.profile,
         },
       ],
     },
@@ -60,6 +62,8 @@ export const MenuList = () => {
                   return (
                     <Item
                       key={i}
+                      disabled={Boolean(v?.link)}
+                      onPress={() => navigate(v?.link)}
                       thumb={<IconFont name={v?.icon as any} size={v?.size} color={COLOR?.cyan7} />}
                       arrow="horizontal"
                     >

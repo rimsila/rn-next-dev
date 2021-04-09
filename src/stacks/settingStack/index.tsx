@@ -1,10 +1,12 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
+import { STACK } from 'constants/StackNav';
 import SettingPage from 'modules/setting/screen';
+import { Profile } from 'modules/setting/screen/Profile';
 import React from 'react';
 
 const Stack = createStackNavigator();
 
-const SettingStack = (screenOptions: StackNavigationOptions) => {
+const CreateRoomStack = (screenOptions: StackNavigationOptions) => {
   return (
     <Stack.Navigator
       initialRouteName="Settings"
@@ -15,7 +17,8 @@ const SettingStack = (screenOptions: StackNavigationOptions) => {
       }}
     >
       <Stack.Screen name="Settings" component={SettingPage} options={{ headerTitle: 'Settings' }} />
+      <Stack.Screen name={STACK.settings.profile} component={Profile} options={{ headerTitle: 'Profile' }} />
     </Stack.Navigator>
   );
 };
-export default SettingStack;
+export default CreateRoomStack;

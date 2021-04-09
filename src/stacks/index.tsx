@@ -22,6 +22,24 @@ const HeaderLeft = ({ goBack }) => {
   );
 };
 
+const HeaderRight = () => {
+  return (
+    <View
+      style={{
+        display: 'flex',
+        width: 'auto',
+        paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <IconFont name="icon-user" />
+      <Text style={{ color: 'green', textTransform: 'uppercase', fontWeight: 'bold', marginLeft: 6 }}>Sila</Text>
+    </View>
+  );
+};
+
 const screenOptions: StackNavigationOptions = {
   headerTitleStyle: {
     fontWeight: '500',
@@ -31,27 +49,22 @@ const screenOptions: StackNavigationOptions = {
   gestureEnabled: true,
   gestureDirection: 'horizontal',
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-  headerRight: () => {
-    return (
-      <View
-        style={{
-          display: 'flex',
-          width: 'auto',
-          paddingHorizontal: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <IconFont name="icon-user" />
-        <Text style={{ color: 'green', textTransform: 'uppercase', fontWeight: 'bold', marginLeft: 6 }}>Sila</Text>
-      </View>
-    );
-  },
 };
 
-const HomeScreen = () => {
-  return <MainStack {...{ ...screenOptions }} />;
+const HomeScreen = ({ navigation: { goBack } }) => {
+  return (
+    <MainStack
+      {...{
+        ...screenOptions,
+        headerLeft: () => {
+          return <HeaderLeft {...{ goBack }} />;
+        },
+        headerRight: () => {
+          return <HeaderRight />;
+        },
+      }}
+    />
+  );
 };
 
 const SettingsScreen = ({ navigation: { goBack } }) => {
@@ -61,6 +74,9 @@ const SettingsScreen = ({ navigation: { goBack } }) => {
         ...screenOptions,
         headerLeft: () => {
           return <HeaderLeft {...{ goBack }} />;
+        },
+        headerRight: () => {
+          return <HeaderRight />;
         },
       }}
     />
