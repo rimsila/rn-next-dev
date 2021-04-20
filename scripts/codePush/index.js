@@ -1,53 +1,53 @@
 'use strict';
-// TODO：某个Staging发布为Product
-// 请选择您要部署环境
+// TODO: A certain Staging is published as Product
+// Please select the environment you want to deploy
 // 1. Production
 // 2. Staging
 //
-// 请选择您要部署的平台
-// 1. android和ios
+// Please select the platform you want to deploy
+// 1. android and ios
 // 2. android
 // 3. ios
 //
-// 请输入本次修改的描述
-// 回车换行， cmd + s 保存并发布
+// Please enter a description of this modification
+// Carriage return, line feed, cmd + s to save and publish
 //
 const { makePush } = require('./makePush');
 const inquirer = require('inquirer');
 
 const ENV_PARAMS = {
-  message: '请选择您要部署环境',
+  message: 'Please select the environment you want to deploy',
   type: 'list',
   name: 'environment',
   items: {
     1: 'Production',
-    2: 'Staging'
+    2: 'Staging',
   },
-  choices: ['Staging', 'Production']
+  choices: ['Staging', 'Production'],
 };
 
 const PLATFORM_PARAMS = {
-  message: '请选择您要部署的平台',
+  message: 'Please select the platform you want to deploy',
   type: 'list',
   name: 'platform',
   choices: ['both', 'android', 'ios'],
-  default: 'both'
+  default: 'both',
 };
 
 const VERSION_PARAMS = {
   name: 'version',
   type: 'input',
-  message: '请输入要更新的目标版本号'
+  message: 'Please enter the target version number to be updated',
 };
 
 const DES_PARAMS = {
   name: 'description',
   type: 'editor',
-  message: '请输入本次修改的描述'
+  message: 'Please enter a description of this modification',
 };
 
 const MANDATORY_PARAMS = {
-  message: '本次更新是否为强制更新',
+  message: 'Is this update mandatory?',
   type: 'list',
   name: 'mandatory',
   choices: ['true', 'false'],
@@ -56,11 +56,11 @@ const MANDATORY_PARAMS = {
 
 const QUESTIONS = [ENV_PARAMS, PLATFORM_PARAMS, DES_PARAMS, VERSION_PARAMS, MANDATORY_PARAMS];
 
-function main (){
+function main() {
   inquirer.prompt(QUESTIONS).then(option => {
     const { description, environment, platform, version, mandatory } = option;
     if (!description) {
-      console.error('你没有输入改动描述');
+      console.error('You did not enter a description of the change');
       process.exit(1);
     }
     makePush({
