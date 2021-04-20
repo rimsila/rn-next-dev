@@ -13,13 +13,13 @@ const Container: FC<IContainer> = props => {
     <ImageBackground
       {...rest}
       source={require('../../assets/bg.webp')}
-      style={{ width, height, ...(rest.style as any) }}
+      style={{ width, height: '100%', ...(rest.style as any) }}
     >
       <StatusBar barStyle="light-content" />
       <SafeAreaView
         {...{
           ...content,
-          style: { flex: 1, paddingHorizontal: 15, paddingVertical: 20, ...(content?.style as any) },
+          style: { flex: 1, paddingHorizontal: 15, paddingVertical: 15, ...(content?.style as any) },
         }}
       >
         {children}

@@ -2,7 +2,8 @@ import { Button, Flex, List, WhiteSpace } from '@ant-design/react-native';
 import { COLOR } from 'constants/color';
 import IconFont from 'iconfont';
 import React, { Fragment } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { Text } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 const Item = List.Item;
 
 export const TransactionList = () => {
@@ -179,15 +180,18 @@ export const TransactionList = () => {
       ],
       total: 30000,
 
-      date: 'Monday, 20 ,2021',
+      date: 'Monday, 200 ,2021',
     },
   ];
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: 'white', marginVertical: 20 }}
+    <KeyboardAwareScrollView
+      enableOnAndroid
       automaticallyAdjustContentInsets={false}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
+      style={{
+        paddingVertical: 15,
+      }}
     >
       {data?.map((v, i) => {
         return (
@@ -196,7 +200,7 @@ export const TransactionList = () => {
               renderHeader={
                 <Flex
                   style={{
-                    marginBottom: 10,
+                    marginVertical: 10,
                   }}
                 >
                   <Flex.Item style={{ paddingLeft: 4, paddingRight: 4 }}>
@@ -228,6 +232,6 @@ export const TransactionList = () => {
           </Fragment>
         );
       })}
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };

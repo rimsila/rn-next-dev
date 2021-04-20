@@ -14,7 +14,7 @@ export default function Homepage() {
         content: {
           style: {
             backgroundColor: 'white',
-            padding: 0,
+            // padding: 0,
           },
         },
       }}

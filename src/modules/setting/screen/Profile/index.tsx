@@ -21,6 +21,7 @@ export const Profile = () => {
       Alert.alert('All field are require!');
     }
   };
+
   return (
     <Container
       {...{
@@ -82,7 +83,7 @@ export const Profile = () => {
                 marginTop: 15,
               }}
               type="primary"
-              onPress={() => form.submit()}
+              onPress={form.submit}
             >
               Save
             </Button>

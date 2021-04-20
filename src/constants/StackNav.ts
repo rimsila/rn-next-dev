@@ -13,5 +13,10 @@ export const STACK = {
   },
   settings: {
     profile: 'setting-profile',
+    index: 'Settings',
+  },
+  expense: {
+    index: 'expense',
+    create: 'create-expense',
   },
 };
