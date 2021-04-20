@@ -4,9 +4,13 @@ import IconFont from 'iconfont';
 import React, { Fragment } from 'react';
 import { Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useTransactionList } from './useTransactionList';
 const Item = List.Item;
 
 export const TransactionList = () => {
+  const { productsData } = useTransactionList();
+  console.log('productsData', productsData);
+
   const data = [
     {
       item: [
@@ -183,6 +187,7 @@ export const TransactionList = () => {
       date: 'Monday, 200 ,2021',
     },
   ];
+
   return (
     <KeyboardAwareScrollView
       enableOnAndroid

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-import RNBootSplash from 'react-native-bootsplash';
-import { SWRConfig } from 'swr';
 import { useUpdateAtom } from 'jotai/utils';
-
-import Stack from './stacks';
 import authService from 'modules/auth/authService';
-import { ValidateMessages } from 'rc-field-form/es/interface';
 import { FormProvider } from 'rc-field-form';
+import { ValidateMessages } from 'rc-field-form/es/interface';
+import React, { useEffect } from 'react';
+import RNBootSplash from 'react-native-bootsplash';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { RootContextProvider } from 'store';
+import { SWRConfig } from 'swr';
+import Stack from './stacks';
 
 export default function App() {
   const updateAuth = useUpdateAtom(authService.authAtom);
@@ -43,11 +43,13 @@ export default function App() {
           onError: handleError,
         }}
       >
-        <FormProvider validateMessages={myMessages}>
-          <NavigationContainer>
-            <Stack />
-          </NavigationContainer>
-        </FormProvider>
+        <RootContextProvider>
+          <FormProvider validateMessages={myMessages}>
+            <NavigationContainer>
+              <Stack />
+            </NavigationContainer>
+          </FormProvider>
+        </RootContextProvider>
       </SWRConfig>
     </SafeAreaProvider>
   );

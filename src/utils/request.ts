@@ -13,7 +13,7 @@ export async function nextRequest<TResult = any>(
   method: MethodType,
   url: string,
   opt?: IRequestOption,
-  isGraphQL = true
+  isGraphQL = false
 ) {
   const { hasParam, hasParamData, hasPassByParam } = opt || {};
   const defaultParam = hasParam ? { accessKey: getToken()?.token } : {};
@@ -29,7 +29,7 @@ export async function nextRequest<TResult = any>(
    */
 
   configInstance({
-    baseURL: '',
+    baseURL: 'https://gorest.co.in',
     params: defaultParam,
   });
 

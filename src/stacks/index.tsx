@@ -11,7 +11,6 @@ import authService from 'modules/auth/authService';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { MMKV } from 'react-native-mmkv';
 import AuthStack from './authStack';
 import ExpanseStack from './expanseStack';
 import MainStack from './mainStack';
@@ -108,7 +107,7 @@ const CreateExpanseScreen = ({ navigation: { goBack } }) => {
 export default () => {
   const auth = useAtomValue(authService.authAtom);
 
-  const isAuth = MMKV.getString('token');
+  const isAuth = true;
   const Tab = createBottomTabNavigator();
 
   if (isAuth || auth?.signedIn) {

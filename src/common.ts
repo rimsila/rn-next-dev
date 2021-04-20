@@ -1,4 +1,3 @@
-import { MMKV } from 'react-native-mmkv';
 import type { ResponseError } from 'umi-request';
 import { extend } from 'umi-request';
 import { LoginFailure } from './enums';
@@ -39,7 +38,7 @@ export function errorHandler(error: ResponseError) {
 }
 
 export const initRequest = () => {
-  const token = MMKV.getString('token') ?? '';
+  const token = '';
   const request = extend({
     timeout: 10000,
     headers: {
