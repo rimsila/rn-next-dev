@@ -1,18 +1,14 @@
+import { UseRequestProvider } from '@ahooksjs/use-request';
 import { NavigationContainer } from '@react-navigation/native';
-import { useUpdateAtom } from 'jotai/utils';
-import authService from 'modules/auth/authService';
 import { FormProvider } from 'rc-field-form';
 import { ValidateMessages } from 'rc-field-form/es/interface';
 import React, { useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RootContextProvider } from 'store';
-import { SWRConfig } from 'swr';
 import Stack from './stacks';
 
 export default function App() {
-  const updateAuth = useUpdateAtom(authService.authAtom);
-
   useEffect(() => {
     const init = async () => {
       // …do multiple sync or async tasks
@@ -27,22 +23,22 @@ export default function App() {
    * Global error handling, when the interface returns a login failure, automatically log out and enter the login page to log in again
    * @param error
    */
-  const handleError = (error: Error) => {
-    if (error.message === 'LoginFailure') {
-      updateAuth({ signedIn: false });
-    }
-  };
+
   const myMessages: ValidateMessages = {
     required: '${name} can not be empty!',
   };
 
   return (
-    <SafeAreaProvider>
-      <SWRConfig
-        value={{
-          onError: handleError,
-        }}
-      >
+    <UseRequestProvider
+      value={{
+        manual: true,
+        onError: err => {
+          console.log('err', err);
+        },
+        // throwOnError: true,
+      }}
+    >
+      <SafeAreaProvider>
         <RootContextProvider>
           <FormProvider validateMessages={myMessages}>
             <NavigationContainer>
@@ -50,7 +46,7 @@ export default function App() {
             </NavigationContainer>
           </FormProvider>
         </RootContextProvider>
-      </SWRConfig>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </UseRequestProvider>
   );
 }

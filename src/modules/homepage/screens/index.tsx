@@ -3,10 +3,9 @@ import Container from 'modules/auth/components/Container';
 import React from 'react';
 import { TransactionList } from './TransactionList';
 import { TransactionMonthlyList } from './TransactionMonthlyList';
-import { TransactionWeeklyList } from './TransactionWeeklyList';
 
 export default function Homepage() {
-  const tabs = [{ title: 'Daily' }, { title: 'Weekly' }, { title: 'Monthly' }];
+  const tabs = [{ title: 'Daily' }, { title: 'Weekly' }];
 
   return (
     <Container
@@ -21,7 +20,6 @@ export default function Homepage() {
     >
       <Tabs tabs={tabs} animated>
         <TransactionList />
-        <TransactionWeeklyList />
         <TransactionMonthlyList />
       </Tabs>
     </Container>

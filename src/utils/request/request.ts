@@ -1,20 +1,27 @@
-import { getToken } from '@next-dev/core/es/authority';
-import type { IRequestOption } from '@next-dev/core/es/nextRequest';
 import {
   addRequestInterceptor,
+  addResponseInterceptor,
   commonRequestInterceptor,
+  commonResponseInterceptor,
   configGlobalHeader,
   configInstance,
+  IRequestOption,
   request,
-} from '@next-dev/core/es/nextRequest';
-import { handlerGlobalErr } from './globalHttpErrorRes';
+} from './nextRequestUtil';
 
-export async function nextRequest<TResult = any>(
-  method: MethodType,
-  url: string,
-  opt?: IRequestOption,
-  isGraphQL = false
-) {
+export type INextRequest = {
+  method: MethodType;
+  url: string;
+  opt?: IRequestOption;
+};
+
+const getToken = () => {
+  const token = '';
+  return {
+    token,
+  };
+};
+export async function nextRequest<TResult = any>(method: MethodType, url: string, opt?: IRequestOption) {
   const { hasParam, hasParamData, hasPassByParam } = opt || {};
   const defaultParam = hasParam ? { accessKey: getToken()?.token } : {};
   const dfPramData = hasParamData ? { accessKey: getToken()?.token } : {};
@@ -29,7 +36,7 @@ export async function nextRequest<TResult = any>(
    */
 
   configInstance({
-    baseURL: 'https://gorest.co.in',
+    baseURL: 'https://gorest.co.in/public-api',
     params: defaultParam,
   });
 
@@ -46,33 +53,17 @@ export async function nextRequest<TResult = any>(
    * @axiosInterceptor handle global res and req
    */
   addRequestInterceptor(...commonRequestInterceptor);
-  // addResponseInterceptor(...commonResponseInterceptor); // not yet use it
-
-  /**
-   * @return_data to client ui
-   */
+  addResponseInterceptor(...commonResponseInterceptor);
   try {
     const response: any = await request<TResult>({
       url,
-      fullTip: method !== 'GET' && !isGraphQL,
+      fullTip: method !== 'GET',
       ...opt,
       data: { ...dfPramData, ...opt?.data }, // has default data
       method,
     });
-
-    /**
-     * @handlerGlobalError show msg success/err/redirect
-     */
-
-    //* set success
-    handlerGlobalErr({ ...response, method });
-    return response?.data;
+    return response;
   } catch (catchAxiosError) {
-    //* catchError error
-    handlerGlobalErr({
-      ...catchAxiosError,
-      isErr: true,
-    });
     return catchAxiosError;
   }
 }

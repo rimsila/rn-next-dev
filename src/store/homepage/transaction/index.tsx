@@ -1,5 +1,6 @@
 import { useCreation, usePersistFn, useRequest, useSetState } from 'ahooks';
 import React from 'react';
+import { transactionAPI } from 'service/homepage/transaction';
 import { createContext } from 'use-context-selector';
 
 // * ----- initialState --------
@@ -15,8 +16,8 @@ const initialState = {
 
 type Action = Partial<{
   insCounter: () => void;
-  runGetProductsData: () => void;
-  refreshGetProducts: () => void;
+  runGetProductsData: (params?: ITransactionAPI.Pagination | undefined) => Promise<any>;
+  refreshGetProducts: any;
 }>;
 
 // * ----- ctx and TranProvider --------
@@ -39,14 +40,10 @@ export const TranProvider = ({ children }: { children: React.ReactNode }) => {
     loading: loadingGetProducts,
     run: runGetProductsData,
     refresh: refreshGetProducts,
-  } = useRequest('https://gorest.co.in/public-api/products', {
-    manual: true,
-  });
+  } = useRequest(transactionAPI.getProduct);
 
   //   optimize state
   const productsData = useCreation(() => productsDataApi, [productsDataApi]);
-
-  // console.log('productsDataApi', productsDataApi);
 
   return (
     <tranCtx.Provider

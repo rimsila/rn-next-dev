@@ -6,15 +6,10 @@ import { CardStyleInterpolators, StackNavigationOptions } from '@react-navigatio
 import { COLOR } from 'constants/color';
 import { STACK } from 'constants/StackNav';
 import IconFont from 'iconfont';
-import { useAtomValue } from 'jotai/utils';
-import authService from 'modules/auth/authService';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import AuthStack from './authStack';
-import ExpanseStack from './expanseStack';
 import MainStack from './mainStack';
-import SettingStack from './settingStack';
 
 export const HeaderLeft = ({ goBack }) => {
   return (
@@ -72,86 +67,38 @@ const HomeScreen = ({ navigation: { goBack } }) => {
   );
 };
 
-const SettingsScreen = ({ navigation: { goBack } }) => {
-  return (
-    <SettingStack
-      {...{
-        ...screenOptions,
-        headerLeft: () => {
-          return <HeaderLeft {...{ goBack }} />;
-        },
-        headerRight: () => {
-          return <HeaderRight />;
-        },
-      }}
-    />
-  );
-};
-
-const CreateExpanseScreen = ({ navigation: { goBack } }) => {
-  return (
-    <ExpanseStack
-      {...{
-        ...screenOptions,
-        headerLeft: () => {
-          return <HeaderLeft {...{ goBack }} />;
-        },
-        headerRight: () => {
-          return <HeaderRight />;
-        },
-      }}
-    />
-  );
-};
-
 export default () => {
-  const auth = useAtomValue(authService.authAtom);
+  // const auth = useAtomValue(authService.authAtom);
 
-  const isAuth = true;
+  // const isAuth = true;
   const Tab = createBottomTabNavigator();
 
-  if (isAuth || auth?.signedIn) {
-    return (
-      <>
-        <Provider locale={enUS}>
-          <Tab.Navigator
-            initialRouteName="HomeStack"
-            tabBarOptions={{
-              activeTintColor: COLOR.cyan7,
-            }}
-          >
-            <Tab.Screen
-              name="HomeStack"
-              component={HomeScreen}
-              options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({ color }) => <IconFont name="icon-merchant-blue" color={color} />,
-              }}
-            />
-            <Tab.Screen
-              name={STACK.expense.create}
-              component={CreateExpanseScreen}
-              options={{
-                tabBarLabel: 'New Expense',
-                tabBarIcon: ({ color }) => <IconFont name="icon-add-green" color={color} size={32} />,
-              }}
-            />
-            <Tab.Screen
-              name="Settings"
-              component={SettingsScreen}
-              options={{
-                tabBarLabel: 'Settings',
-                tabBarIcon: ({ color }) => <IconFont name="icon-setting-white" color={color} />,
-              }}
-            />
-          </Tab.Navigator>
-        </Provider>
-      </>
-    );
-  }
+  // if (isAuth || auth?.signedIn) {
   return (
-    <Provider>
-      <AuthStack {...screenOptions} />
-    </Provider>
+    <>
+      <Provider locale={enUS}>
+        <Tab.Navigator
+          initialRouteName="HomeStack"
+          tabBarOptions={{
+            activeTintColor: COLOR.cyan7,
+          }}
+        >
+          <Tab.Screen
+            name="HomeStack"
+            component={HomeScreen}
+            options={{
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ color }) => <IconFont name="icon-merchant-blue" color={color} />,
+            }}
+          />
+        </Tab.Navigator>
+      </Provider>
+    </>
   );
+  // }
+  // return (
+  //   <Provider>
+  //     <AuthStack {...screenOptions} />
+  //   </Provider>
+  // );
 };
