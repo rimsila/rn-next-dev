@@ -1,8 +1,9 @@
 import Container from 'modules/auth/components/Container';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Easing } from 'react-native-reanimated';
 import { useTransition } from 'react-native-redash';
+import { useAuthModel } from 'store';
 import LoginBtnGroup from './LoginBtnGroup';
 import LoginForm from './LoginForm';
 import Logo from './Logo';
@@ -12,6 +13,7 @@ export default function SignIn() {
   const [activeKey, setActiveKey] = useState('sms');
   const isSmsLogin = activeKey === 'sms';
 
+  const { getUserRequestApiKey } = useAuthModel(m => [m.getUserRequestApiKey]);
   const showAnimation = useTransition(showLoginForm, { duration: 600, easing: Easing.inOut(Easing.ease) });
   /**
    * The animation effect is triggered after the button is clicked:
@@ -24,6 +26,10 @@ export default function SignIn() {
     setActiveKey(activeKey);
   };
 
+  useEffect(() => {
+    getUserRequestApiKey();
+  }, [getUserRequestApiKey]);
+
   return (
     <Container
       {...{
@@ -33,7 +39,7 @@ export default function SignIn() {
         },
       }}
     >
-      <KeyboardAwareScrollView enableOnAndroid>
+      <KeyboardAwareScrollView>
         {/* logo and welcome message */}
         <Logo {...{ showAnimation }} />
         {/* Login button group */}

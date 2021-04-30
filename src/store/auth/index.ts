@@ -1,17 +1,37 @@
-import { useUpdateAtom } from 'jotai/utils';
-import authService from 'modules/auth/authService';
-import { useCallback } from 'react';
-import { MMKV } from 'react-native-mmkv';
+import useRequest from '@ahooksjs/use-request';
+import { createModel } from 'hox';
+import { useState } from 'react';
+import { getToken, setApiKey, setToken } from 'utils/storage';
+import { authService } from './authService';
 
-export const useAuth = () => {
-  const updateAuth = useUpdateAtom(authService.authAtom);
+const useAuthModel = () => {
+  const [isAuth, setIsAuth] = useState(false);
+  const getUserRequestApiKey = async () => {
+    const res: API.AuthType = (await authService.userRequestApiKey()).data?.data?.requestApiKey;
+    if (res) {
+      setApiKey(res?.apiKey);
+    }
+    return res;
+  };
 
-  const logout = useCallback(() => {
-    updateAuth({ signedIn: false });
-    MMKV.delete('token');
-  }, [updateAuth]);
+  const { run: runLogin } = useRequest(authService.loginRoomUser, {
+    manual: true,
+    onSuccess: res => {
+      const token = res?.data?.data?.loginRoomUser?.token;
+      if (token) {
+        setIsAuth(true);
+        setToken(token);
+      }
+      // console.log('res', res?.data?.data?.);
+    },
+  });
 
   return {
-    logout,
+    runLogin,
+    getUserRequestApiKey,
+    isAuth: isAuth || getToken(),
+    setIsAuth,
   };
 };
+
+export default createModel(useAuthModel);

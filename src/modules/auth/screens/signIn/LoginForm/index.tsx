@@ -1,27 +1,24 @@
 import { useNavigation } from '@react-navigation/core';
-import { useUpdateAtom } from 'jotai/utils';
-import authService from 'modules/auth/authService';
 import Form, { Field, useForm } from 'rc-field-form';
 import { Store } from 'rc-field-form/es/interface';
 import React from 'react';
 import { Alert, StyleSheet, Text, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { MMKV } from 'react-native-mmkv';
 import Animated, { Extrapolate, interpolate, SpringUtils } from 'react-native-reanimated';
 import { mix, useSpringTransition } from 'react-native-redash';
+import { useAuthModel } from 'store';
 import LoginTab from '../LoginTab';
 
 const FormContent = ({ isSmsLogin }: { isSmsLogin: boolean }) => {
   const [form] = useForm();
   const navigation = useNavigation();
-  const updateAuth = useUpdateAtom(authService.authAtom);
+  const { runLogin } = useAuthModel(m => [m.runLogin]);
 
   const handleFinish = (values: Store) => {
     console.log('values', values);
     // navigation.navigate('ConfigPass');
-    if (values?.phone === 'Admin' && values?.sms === 'Admin') {
-      MMKV.set('token', JSON.stringify(values?.phone + values?.sms));
-      updateAuth({ signedIn: true });
+    if (values?.phone && values?.sms) {
+      runLogin({ password: values.sms, username: values.phone });
     } else {
       Alert.alert('Invalid', 'Please fill-in the correct form!', [
         {

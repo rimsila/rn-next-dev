@@ -1,78 +1,49 @@
-import { getToken } from '@next-dev/core/es/authority';
-import type { IRequestOption } from '@next-dev/core/es/nextRequest';
-import {
-  addRequestInterceptor,
-  commonRequestInterceptor,
-  configGlobalHeader,
-  configInstance,
-  request,
-} from '@next-dev/core/es/nextRequest';
-import { handlerGlobalErr } from './globalHttpErrorRes';
+import axios from 'axios';
+import { BASE_URL_API } from 'constants/common';
+import { getApiKey, getToken } from './storage';
 
-export async function nextRequest<TResult = any>(
-  method: MethodType,
-  url: string,
-  opt?: IRequestOption,
-  isGraphQL = false
-) {
-  const { hasParam, hasParamData, hasPassByParam } = opt || {};
-  const defaultParam = hasParam ? { accessKey: getToken()?.token } : {};
-  const dfPramData = hasParamData ? { accessKey: getToken()?.token } : {};
+const params = {};
 
-  /**
-   * @hasPassByParam if true url will have default
-   */
-  url = hasPassByParam ? `${url}/${getToken()?.token}` : url;
+const instance = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  baseURL: BASE_URL_API.ybizTech,
+  params,
+});
 
-  /**
-   * @configInstance
-   */
-
-  configInstance({
-    baseURL: 'https://gorest.co.in',
-    params: defaultParam,
-  });
-
-  /**
-   * @configGlobalHeader set header default id Bearer auth
-   */
-  configGlobalHeader(() => {
-    return {
-      Authorization: '', //  remove Bearer auth
-    };
-  });
-
-  /**
-   * @axiosInterceptor handle global res and req
-   */
-  addRequestInterceptor(...commonRequestInterceptor);
-  // addResponseInterceptor(...commonResponseInterceptor); // not yet use it
-
-  /**
-   * @return_data to client ui
-   */
-  try {
-    const response: any = await request<TResult>({
-      url,
-      fullTip: method !== 'GET' && !isGraphQL,
-      ...opt,
-      data: { ...dfPramData, ...opt?.data }, // has default data
-      method,
-    });
-
-    /**
-     * @handlerGlobalError show msg success/err/redirect
-     */
-
-    //* set success
-    handlerGlobalErr({ ...response, method });
-    return response?.data;
-  } catch (catchAxiosError) {
-    //* catchError error
-    handlerGlobalErr({
-      ...catchAxiosError,
-      isErr: true,
-    });
-    return catchAxiosError;
+instance.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    if (getToken() || getApiKey()) {
+      config.headers = {
+        Authorization: `Bearer ${getToken()}`,
+        'api-key': getApiKey(),
+      };
+    }
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
   }
-}
+);
+
+// Add a response interceptor
+instance.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+
+    return Promise.reject(error);
+  }
+);
+
+const defaultParam: typeof params = instance.defaults.params;
+
+export { instance as request, defaultParam };

@@ -63,6 +63,7 @@
         "@react-navigation/stack": "^5.14.3",
         "add": "^2.0.6",
         "ahooks": "^2.10.0",
+        "hox": "^1.1.4",
         "immer": "^9.0.1",
         "jotai": "^0.15.3",
         "lodash-es": "^4.17.21",
