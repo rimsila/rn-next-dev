@@ -1,3 +1,4 @@
+import { Button } from '@ant-design/react-native';
 import { useNavigation } from '@react-navigation/core';
 import Form, { Field, useForm } from 'rc-field-form';
 import { Store } from 'rc-field-form/es/interface';
@@ -12,7 +13,7 @@ import LoginTab from '../LoginTab';
 const FormContent = ({ isSmsLogin }: { isSmsLogin: boolean }) => {
   const [form] = useForm();
   const navigation = useNavigation();
-  const { runLogin } = useAuthModel(m => [m.runLogin]);
+  const { runLogin, loadingLogin } = useAuthModel(m => [m.runLogin, m.loadingLogin]);
 
   const handleFinish = (values: Store) => {
     console.log('values', values);
@@ -59,9 +60,9 @@ const FormContent = ({ isSmsLogin }: { isSmsLogin: boolean }) => {
               }}
             />
           </Field>
-          <TouchableOpacity onPress={form.submit} style={styles.loginBtn}>
+          <Button onPress={form.submit} style={styles.loginBtn} loading={loadingLogin}>
             <Text style={{ fontSize: 17, lineHeight: 22, color: '#fff', fontWeight: '500' }}>Sign In</Text>
-          </TouchableOpacity>
+          </Button>
         </>
       ) : (
         <>

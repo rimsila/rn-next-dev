@@ -51,7 +51,7 @@ const MainStack = (screenOptions: StackNavigationOptions) => {
         name="Homepage"
         component={Homepage}
         options={{
-          headerTitle: 'Homepage',
+          headerTitle: '',
           headerLeft: () => {
             return (
               <TouchableOpacity onPress={() => setOpen(true)}>

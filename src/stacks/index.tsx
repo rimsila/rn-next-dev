@@ -10,6 +10,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuthModel } from 'store';
+import { getToken } from 'utils/storage';
 import AuthStack from './authStack';
 import ExpanseStack from './expanseStack';
 import MainStack from './mainStack';
@@ -108,7 +109,7 @@ export default () => {
 
   const Tab = createBottomTabNavigator();
 
-  if (isAuth) {
+  if (isAuth || getToken()) {
     return (
       <>
         <Provider locale={enUS}>

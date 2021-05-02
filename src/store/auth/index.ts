@@ -1,11 +1,17 @@
 import useRequest from '@ahooksjs/use-request';
 import { createModel } from 'hox';
 import { useState } from 'react';
-import { getToken, setApiKey, setToken } from 'utils/storage';
+import { removeToken, setApiKey, setToken } from 'utils/storage';
 import { authService } from './authService';
 
 const useAuthModel = () => {
   const [isAuth, setIsAuth] = useState(false);
+
+  const logout = () => {
+    removeToken();
+    setIsAuth(false);
+  };
+
   const getUserRequestApiKey = async () => {
     const res: API.AuthType = (await authService.userRequestApiKey()).data?.data?.requestApiKey;
     if (res) {
@@ -14,7 +20,7 @@ const useAuthModel = () => {
     return res;
   };
 
-  const { run: runLogin } = useRequest(authService.loginRoomUser, {
+  const { run: runLogin, loading: loadingLogin } = useRequest(authService.loginRoomUser, {
     manual: true,
     onSuccess: res => {
       const token = res?.data?.data?.loginRoomUser?.token;
@@ -27,9 +33,11 @@ const useAuthModel = () => {
   });
 
   return {
+    loadingLogin,
+    logout,
     runLogin,
     getUserRequestApiKey,
-    isAuth: isAuth || getToken(),
+    isAuth,
     setIsAuth,
   };
 };

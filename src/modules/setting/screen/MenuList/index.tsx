@@ -6,21 +6,12 @@ import IconFont from 'iconfont';
 import React, { Fragment } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useAuth } from 'store/auth';
+import { useAuthModel } from 'store';
 const Item = List.Item;
 
 export const MenuList = () => {
-  const { logout } = useAuth();
+  const { logout } = useAuthModel(m => [m.logout]);
   const { navigate } = useNavigation();
-  // const onLogOutConfirm = () => {
-  //   Alert.alert('Logout', 'Are you sure to logout?', [
-  //     {
-  //       text: 'Cancel',
-  //       style: 'cancel',
-  //     },
-  //     { text: 'OK', onPress: () => logout() },
-  //   ]);
-  // };
 
   const data = [
     {

@@ -1,193 +1,23 @@
-import { Button, Flex, List, WhiteSpace } from '@ant-design/react-native';
+import { ActivityIndicator, Button, Flex, List, WhiteSpace } from '@ant-design/react-native';
 import { COLOR } from 'constants/color';
+import dayjs from 'dayjs';
 import IconFont from 'iconfont';
+import Container from 'modules/auth/components/Container';
 import React, { Fragment } from 'react';
 import { Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTransactionList } from './useTransactionList';
+
 const Item = List.Item;
 
 export const TransactionList = () => {
-  const { productsData } = useTransactionList();
-  console.log('productsData', productsData);
+  const { dataTransaction, loadingGetDailyTran } = useTransactionList();
 
-  const data = [
-    {
-      item: [
-        {
-          icon: 'icon-food-o',
-          title: 'Food',
-          price: -60,
-          size: 30,
-        },
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-        {
-          icon: 'icon-si-glyph-customer-support',
-          title: 'Boy',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      date: 'Monday, 20 ,2021',
-      total: 30000,
-    },
-    {
-      item: [
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      total: 30000,
-
-      date: 'Sunday, 10 ,2021',
-    },
-    {
-      item: [
-        {
-          icon: 'icon-merchant-blue',
-          title: 'Shop',
-          price: -6000,
-          size: 30,
-        },
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      total: 30000,
-
-      date: 'Monday, 20 ,2021',
-    },
-    {
-      item: [
-        {
-          icon: 'icon-food-o',
-          title: 'Food',
-          price: -60,
-          size: 30,
-        },
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      total: 30000,
-
-      date: 'Monday, 20 ,2021',
-    },
-    {
-      item: [
-        {
-          icon: 'icon-food-o',
-          title: 'Food',
-          price: -60,
-          size: 30,
-        },
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      total: 30000,
-
-      date: 'Sunday, 20 ,2021',
-    },
-    {
-      item: [
-        {
-          icon: 'icon-food-o',
-          title: 'Food',
-          price: -60,
-          size: 30,
-        },
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      total: 30000,
-
-      date: 'Monday, 20 ,2021',
-    },
-    {
-      item: [
-        {
-          icon: 'icon-food-o',
-          title: 'Food',
-          price: -60,
-          size: 30,
-        },
-        {
-          icon: 'icon-car',
-          title: 'Car',
-          price: -20000,
-          size: 34,
-        },
-        {
-          icon: 'icon-house_alt',
-          title: 'House',
-          price: -40000,
-          size: 25,
-        },
-      ],
-      total: 30000,
-
-      date: 'Monday, 200 ,2021',
-    },
-  ];
-
+  if (loadingGetDailyTran) {
+    <Container>
+      <ActivityIndicator toast />
+    </Container>;
+  }
   return (
     <KeyboardAwareScrollView
       enableOnAndroid
@@ -198,7 +28,9 @@ export const TransactionList = () => {
         paddingVertical: 15,
       }}
     >
-      {data?.map((v, i) => {
+      {dataTransaction?.map((v, i) => {
+        // console.log('v', v);
+
         return (
           <Fragment key={i}>
             <List
@@ -210,25 +42,25 @@ export const TransactionList = () => {
                 >
                   <Flex.Item style={{ paddingLeft: 4, paddingRight: 4 }}>
                     <Button size="small" type="ghost">
-                      {v?.date}
+                      {dayjs(v?.transactionDate).format('YYYY-MM-DD')}
                     </Button>
                   </Flex.Item>
                   <Flex.Item style={{ paddingLeft: 4, paddingRight: 4 }}>
                     <Button size="small" type="primary">
-                      Total: {v?.total}
+                      Total:${v?.amount}
                     </Button>
                   </Flex.Item>
                 </Flex>
               }
             >
-              {v?.item?.map((v, i) => {
+              {v?.transactions?.map((v, i) => {
                 return (
                   <Item
                     key={i}
-                    thumb={<IconFont name={v?.icon as any} size={v?.size} color={COLOR?.cyan7} />}
-                    extra={<Text style={{ color: COLOR.red6, fontSize: 14 }}>{'$  ' + v?.price}</Text>}
+                    thumb={<IconFont name="icon-food-o" size={30} color={COLOR?.cyan7} />}
+                    extra={<Text style={{ color: COLOR.red6, fontSize: 16 }}>{'$' + v?.amount}</Text>}
                   >
-                    {' ' + v?.title}
+                    {' ' + v?.note}
                   </Item>
                 );
               })}

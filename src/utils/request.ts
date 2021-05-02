@@ -21,9 +21,12 @@ instance.interceptors.request.use(
         'api-key': getApiKey(),
       };
     }
+
     return config;
   },
   function (error) {
+    console.log('error', error);
+
     // Do something with request error
     return Promise.reject(error);
   }

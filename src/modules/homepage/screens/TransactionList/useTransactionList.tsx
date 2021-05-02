@@ -1,18 +1,19 @@
 import { useEffect } from 'react';
-import { tranCtx } from 'store/homepage/transaction';
-import { useContextSelector } from 'use-context-selector';
-
+import { useTransactionModel } from 'store';
 export const useTransactionList = () => {
-  const runGetProductsData = useContextSelector(tranCtx, v => v[1]?.runGetProductsData);
-  const productsData = useContextSelector(tranCtx, v => v[0]?.productsData);
+  const { runGetTransaction, dataTransaction, loadingGetDailyTran } = useTransactionModel(m => [
+    m.runGetTransaction,
+    m.dataTransaction,
+    m.loadingGetDailyTran,
+  ]);
 
   useEffect(() => {
-    if (runGetProductsData) {
-      runGetProductsData();
-    }
-  }, [runGetProductsData]);
+    runGetTransaction({
+      roomId: '6076b84c086bd50faa5a0fb6',
+      startedAt: new Date('2021-01-01').toISOString(),
+      endedAt: new Date('2021-01-31').toISOString(),
+    });
+  }, [runGetTransaction]);
 
-  return {
-    productsData,
-  };
+  return { dataTransaction, loadingGetDailyTran };
 };
